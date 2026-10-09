@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar acreditación</title>
+</head>
+<body>
+    <h1>Confirmar eliminación</h1>
+
+    <p>
+        ¿Seguro que deseas eliminar la acreditación de
+        {{ acreditacion.usuario }}?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar eliminación</button>
+    </form>
+
+    <a href="{% url 'lista_acreditaciones' %}">Cancelar</a>
+</body>
+</html>

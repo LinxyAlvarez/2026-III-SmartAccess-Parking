@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acreditaciones - SmartAccess Parking</title>
+</head>
+<body>
+    <h1>Acreditaciones registradas</h1>
+
+    <a href="{% url 'nueva_acreditacion' %}">Nueva acreditación</a>
+    <a href="{% url 'lista_usuarios' %}">Volver a usuarios</a>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Tipo</th>
+                <th>Documento</th>
+                <th>Fecha de validación</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for acreditacion in acreditaciones %}
+            <tr>
+                <td>{{ acreditacion.usuario }}</td>
+                <td>{{ acreditacion.tipo }}</td>
+                <td>{{ acreditacion.documento }}</td>
+                <td>{{ acreditacion.fecha_validacion|default:"Pendiente" }}</td>
+                <td>
+                    {% if acreditacion.estado %}Aprobada{% else %}Pendiente{% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'editar_acreditacion' acreditacion.id %}">Editar</a>
+                    <a href="{% url 'eliminar_acreditacion' acreditacion.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay acreditaciones registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

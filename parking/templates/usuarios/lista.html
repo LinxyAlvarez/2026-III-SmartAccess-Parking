@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios - SmartAccess Parking</title>
+</head>
+<body>
+    <h1>Usuarios registrados</h1>
+
+    <a href="{% url 'nuevo_usuario' %}">Nuevo usuario</a>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido paterno</th>
+                <th>Apellido materno</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.apellido_paterno }}</td>
+                <td>{{ usuario.apellido_materno }}</td>
+                <td>{{ usuario.correo }}</td>
+                <td>{{ usuario.telefono }}</td>
+                <td>
+                    <a href="{% url 'editar_usuario' usuario.id %}">Editar</a>
+                    |
+                    <a href="{% url 'eliminar_usuario' usuario.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay usuarios registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

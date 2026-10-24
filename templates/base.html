@@ -11,11 +11,24 @@
         <nav>
             <a href="{% url 'usuarios:usuario_list' %}">Usuarios</a>
             <a href="{% url 'usuarios:vehiculo_list' %}">Vehículos</a>
-            <a href="{% url 'estacionamientos:estacionamiento_list' %}">Estacionamientos</a>
-            <a href="{% url 'estacionamientos:sensor_list' %}">Sensores</a>
+            {% if perms.estacionamientos.view_estacionamiento %}
+                <a href="{% url 'estacionamientos:estacionamiento_list' %}">Estacionamientos</a>
+            {% endif %}
+            {% if perms.estacionamientos.view_sensor %}
+                <a href="{% url 'estacionamientos:sensor_list' %}">Sensores</a>
+            {% endif %}
             <a href="{% url 'registros:registro_list' %}">Registros de uso</a>
             <a href="{% url 'registros:captura_list' %}">Capturas de placa</a>
             <a href="{% url 'registros:incidencia_list' %}">Incidencias</a>
+            {% if user.is_authenticated %}
+                <span>Sesión: {{ user.get_username }}</span>
+                <form method="post" action="{% url 'usuarios:logout' %}" style="display: inline">
+                    {% csrf_token %}
+                    <button type="submit">Cerrar sesión</button>
+                </form>
+            {% else %}
+                <a href="{% url 'usuarios:login' %}">Iniciar sesión</a>
+            {% endif %}
         </nav>
     </header>
 

@@ -1,3 +1,4 @@
+from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from . import views
@@ -6,6 +7,16 @@ from . import views
 app_name = "usuarios"
 
 urlpatterns = [
+    path(
+        "login/",
+        auth_views.LoginView.as_view(template_name="registration/login.html"),
+        name="login",
+    ),
+    path(
+        "logout/",
+        auth_views.LogoutView.as_view(next_page="usuarios:login"),
+        name="logout",
+    ),
     path("", views.UsuarioListView.as_view(), name="usuario_list"),
     path("nuevo/", views.UsuarioCreateView.as_view(), name="usuario_create"),
     path("<int:pk>/editar/", views.UsuarioUpdateView.as_view(), name="usuario_update"),

@@ -129,3 +129,8 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+# Authentication for protected management screens.
+LOGIN_URL = "usuarios:login"
+LOGIN_REDIRECT_URL = "estacionamientos:estacionamiento_list"
+LOGOUT_REDIRECT_URL = "usuarios:login"
